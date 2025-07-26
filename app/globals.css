@@ -14,20 +14,51 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+button, input, a {
+  transition: all 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 a {

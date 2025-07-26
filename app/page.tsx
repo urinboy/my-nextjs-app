@@ -18,6 +18,11 @@ export default function Home() {
             Get started by editing <code>app/page.tsx</code>.
           </li>
           <li>Save and see your changes instantly.</li>
+          <li>
+            <a href="/tasks" style={{ color: "#0070f3", textDecoration: "underline", display: "flex", alignItems: "center", gap: "8px", justifyContent: "center" }}>
+              <i className="fas fa-tasks"></i> Vazifalar sahifasiga o'ting →
+            </a>
+          </li>
         </ol>
 
         <div className={styles.ctas}>
