@@ -2,7 +2,8 @@
 import { useEffect, useState } from "react";
 import "../tasks-responsive.css";
 import { useTheme } from '../contexts/ThemeContext';
-import ThemeSelector from '../components/ThemeSelector';
+import CompactThemeSelector from '../components/CompactThemeSelector';
+import DownloadButton from '../components/DownloadButton';
 
 interface Task {
   id: number;
@@ -209,14 +210,16 @@ export default function TasksPage() {
       background: colors.background,
       padding: "10px"
     }}>
-      <ThemeSelector />
       {/* Header */}
       <div className="task-header" style={{
         maxWidth: "800px",
         margin: "0 auto",
         textAlign: "center",
-        marginBottom: "40px"
+        marginBottom: "40px",
+        position: "relative"
       }}>
+
+        
         <h1 style={{
           color: "white",
           fontSize: "3rem",
@@ -242,7 +245,8 @@ export default function TasksPage() {
         background: colors.containerBg,
         borderRadius: "20px",
         boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-        overflow: "hidden"
+        overflow: "visible",
+        position: "relative"
       }}>
         {/* Add Task Form */}
         <div style={{
@@ -671,11 +675,31 @@ export default function TasksPage() {
             justifyContent: "space-between",
             alignItems: "center",
             fontSize: "14px",
-            color: colors.textSecondary
+            color: colors.textSecondary,
+            position: "relative",
+            overflow: "visible",
+            zIndex: 1
           }}>
-            <span><i className="fas fa-chart-bar"></i> Jami vazifalar: {tasks.length}</span>
-            <span><i className="fas fa-check-circle" style={{color: "#28a745"}}></i> Bajarilgan: {tasks.filter(t => t.completed).length}</span>
-            <span><i className="fas fa-clock" style={{color: "#ffc107"}}></i> Qolgan: {tasks.filter(t => !t.completed).length}</span>
+            <div className="footer-stats" style={{ display: "flex", gap: "20px" }}>
+              <span><i className="fas fa-chart-bar"></i> Jami vazifalar: {tasks.length}</span>
+              <span><i className="fas fa-check-circle" style={{color: "#28a745"}}></i> Bajarilgan: {tasks.filter(t => t.completed).length}</span>
+              <span><i className="fas fa-clock" style={{color: "#ffc107"}}></i> Qolgan: {tasks.filter(t => !t.completed).length}</span>
+            </div>
+            {/* Control buttons positioned at end */}
+            <div className="footer-controls" style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              gap: "10px", 
+              position: "relative", 
+              zIndex: 10 
+            }}>
+              <CompactThemeSelector />
+              <DownloadButton 
+                tasks={tasks} 
+                filteredTasks={filteredTasks} 
+                effectiveTheme={effectiveTheme} 
+              />
+            </div>
           </div>
         )}
       </div>

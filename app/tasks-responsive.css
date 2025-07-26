@@ -85,6 +85,23 @@
     font-size: 2rem !important;
   }
   
+  /* Download button mobile */
+  .download-dropdown {
+    position: static !important;
+    margin-bottom: 20px;
+  }
+  
+  .task-header {
+    text-align: center !important;
+  }
+  
+  .task-header > div[style*="absolute"] {
+    position: static !important;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
   .task-form {
     flex-direction: column;
     gap: 10px;
@@ -92,7 +109,6 @@
   
   .task-form input {
     padding: 12px 15px;
-    padding-left: 15px !important;
     background-image: none !important;
   }
   
@@ -140,6 +156,12 @@
   .task-container {
     margin: 5px !important;
     border-radius: 12px !important;
+  }
+  
+  /* Download button smaller screens */
+  .download-dropdown button {
+    padding: 10px 16px !important;
+    font-size: 12px !important;
   }
   
   .task-form input {
