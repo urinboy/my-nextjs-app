@@ -1,5 +1,21 @@
 /* Tasks page responsive styles */
 
+/* Theme dropdown animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-dropdown {
+  animation: slideDown 0.2s ease-out;
+}
+
 /* Theme support */
 .dark .task-container {
   background: #2c2c2c !important;
