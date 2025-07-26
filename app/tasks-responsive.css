@@ -1,5 +1,26 @@
 /* Tasks page responsive styles */
 
+/* Theme support */
+.dark .task-container {
+  background: #2c2c2c !important;
+  color: #ffffff;
+}
+
+.dark .task-item {
+  background: #3a3a3a !important;
+  color: #ffffff;
+}
+
+.dark input, .dark select {
+  background: #404040 !important;
+  color: #ffffff;
+  border-color: #555 !important;
+}
+
+.dark input::placeholder {
+  color: #b0b0b0;
+}
+
 /* Loading animation */
 @keyframes spin {
   from { transform: rotate(0deg); }

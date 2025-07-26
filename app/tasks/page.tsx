@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import "../tasks-responsive.css";
+import { useTheme } from '../contexts/ThemeContext';
+import ThemeSelector from '../components/ThemeSelector';
 
 interface Task {
   id: number;
@@ -11,6 +13,7 @@ interface Task {
 }
 
 export default function TasksPage() {
+  const { effectiveTheme } = useTheme();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
@@ -145,6 +148,38 @@ export default function TasksPage() {
     }
   };
 
+    // Filtrlangan tasklarni olish
+
+  // Theme colors
+  const getThemeColors = () => {
+    if (effectiveTheme === 'dark') {
+      return {
+        background: "linear-gradient(135deg, #2c3e50 0%, #34495e 100%)",
+        containerBg: "#2c2c2c",
+        cardBg: "#3a3a3a",
+        textPrimary: "#ffffff",
+        textSecondary: "#b0b0b0",
+        border: "#444444",
+        inputBg: "#404040",
+        buttonPrimary: "#4a90e2",
+        buttonSecondary: "#5a5a5a"
+      };
+    }
+    return {
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      containerBg: "white",
+      cardBg: "white",
+      textPrimary: "#333333",
+      textSecondary: "#666666",
+      border: "#e9ecef",
+      inputBg: "white",
+      buttonPrimary: "#007bff",
+      buttonSecondary: "#6c757d"
+    };
+  };
+
+  const colors = getThemeColors();
+
   // Filtrlangan tasklarni olish
   const filteredTasks = tasks.filter(task => {
     // Search filter
@@ -171,9 +206,10 @@ export default function TasksPage() {
   return (
     <div style={{ 
       minHeight: "100vh", 
-      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      background: colors.background,
       padding: "10px"
     }}>
+      <ThemeSelector />
       {/* Header */}
       <div className="task-header" style={{
         maxWidth: "800px",
@@ -203,7 +239,7 @@ export default function TasksPage() {
       <div className="task-container" style={{
         maxWidth: "600px",
         margin: "0 auto",
-        background: "white",
+        background: colors.containerBg,
         borderRadius: "20px",
         boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
         overflow: "hidden"
@@ -233,6 +269,8 @@ export default function TasksPage() {
                   fontSize: "16px",
                   outline: "none",
                   boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                  backgroundColor: colors.inputBg,
+                  color: colors.textPrimary,
                   backgroundImage: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" fill=\"%23999\"><path d=\"M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z\"/></svg>')",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "15px center",
@@ -249,7 +287,8 @@ export default function TasksPage() {
                   fontSize: "14px",
                   outline: "none",
                   boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-                  background: "white",
+                  backgroundColor: colors.inputBg,
+                  color: colors.textPrimary,
                   cursor: "pointer"
                 }}
               >
@@ -296,12 +335,14 @@ export default function TasksPage() {
                   width: "100%",
                   padding: "12px 16px",
                   paddingLeft: "45px",
-                  border: "2px solid #e9ecef",
+                  border: `2px solid ${colors.border}`,
                   borderRadius: "12px",
                   fontSize: "14px",
                   outline: "none",
                   transition: "border-color 0.2s ease",
                   boxSizing: "border-box",
+                  backgroundColor: colors.inputBg,
+                  color: colors.textPrimary,
                   backgroundImage: "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" fill=\"%23999\"><path d=\"M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z\"/></svg>')",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "15px center",
@@ -397,8 +438,8 @@ export default function TasksPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {filteredTasks.map((task, index) => (
                 <div key={task.id} className="task-item" style={{
-                  background: task.completed ? "#f8f9fa" : "white",
-                  border: `2px solid ${task.completed ? "#e9ecef" : "#e3f2fd"}`,
+                  background: task.completed ? (effectiveTheme === 'dark' ? "#2a2a2a" : "#f8f9fa") : colors.cardBg,
+                  border: `2px solid ${task.completed ? colors.border : "#e3f2fd"}`,
                   borderRadius: "16px",
                   padding: "20px",
                   boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
@@ -455,10 +496,12 @@ export default function TasksPage() {
                               style={{
                                 flex: 1,
                                 padding: "8px 12px",
-                                border: "2px solid #007bff",
+                                border: `2px solid ${colors.buttonPrimary}`,
                                 borderRadius: "8px",
                                 fontSize: "16px",
-                                outline: "none"
+                                outline: "none",
+                                backgroundColor: colors.inputBg,
+                                color: colors.textPrimary
                               }}
                               autoFocus
                               onKeyDown={(e) => {
@@ -474,11 +517,12 @@ export default function TasksPage() {
                               onChange={e => setEditPriority(e.target.value as 'low' | 'medium' | 'high')}
                               style={{
                                 padding: "8px 12px",
-                                border: "2px solid #007bff",
+                                border: `2px solid ${colors.buttonPrimary}`,
                                 borderRadius: "8px",
                                 fontSize: "14px",
                                 outline: "none",
-                                background: "white",
+                                backgroundColor: colors.inputBg,
+                                color: colors.textPrimary,
                                 cursor: "pointer"
                               }}
                             >
@@ -532,7 +576,7 @@ export default function TasksPage() {
                             <h4 style={{
                               margin: 0,
                               textDecoration: task.completed ? "line-through" : "none",
-                              color: task.completed ? "#6c757d" : "#333",
+                              color: task.completed ? colors.textSecondary : colors.textPrimary,
                               fontSize: "18px",
                               fontWeight: "500",
                               flex: 1
@@ -621,13 +665,13 @@ export default function TasksPage() {
         {tasks.length > 0 && (
           <div style={{
             padding: "20px 30px",
-            background: "#f8f9fa",
-            borderTop: "1px solid #e9ecef",
+            background: effectiveTheme === 'dark' ? "#2a2a2a" : "#f8f9fa",
+            borderTop: `1px solid ${colors.border}`,
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             fontSize: "14px",
-            color: "#6c757d"
+            color: colors.textSecondary
           }}>
             <span><i className="fas fa-chart-bar"></i> Jami vazifalar: {tasks.length}</span>
             <span><i className="fas fa-check-circle" style={{color: "#28a745"}}></i> Bajarilgan: {tasks.filter(t => t.completed).length}</span>
