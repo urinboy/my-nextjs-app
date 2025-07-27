@@ -326,10 +326,10 @@ export default function TasksPage() {
         </div>
 
         {/* Tasks List */}
-        <div style={{ padding: "30px" }}>
+        <div className="task-list" style={{ padding: "30px" }}>
           {/* Search Input */}
           {tasks.length > 0 && (
-            <div style={{ marginBottom: "20px" }}>
+            <div className="task-search" style={{ marginBottom: "20px" }}>
               <input
                 type="text"
                 placeholder="Qidirish..."
@@ -360,7 +360,7 @@ export default function TasksPage() {
 
           {/* Filter Buttons */}
           {tasks.length > 0 && (
-            <div style={{
+            <div className="task-filters" style={{
               display: "flex",
               gap: "8px",
               marginBottom: "20px",
@@ -439,7 +439,7 @@ export default function TasksPage() {
               </p>
             </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <div className="task-list" style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {filteredTasks.map((task, index) => (
                 <div key={task.id} className="task-item" style={{
                   background: task.completed ? (effectiveTheme === 'dark' ? "#2a2a2a" : "#f8f9fa") : colors.cardBg,
@@ -667,7 +667,7 @@ export default function TasksPage() {
 
         {/* Footer stats */}
         {tasks.length > 0 && (
-          <div style={{
+          <div className="footer-container" style={{
             padding: "20px 30px",
             background: effectiveTheme === 'dark' ? "#2a2a2a" : "#f8f9fa",
             borderTop: `1px solid ${colors.border}`,
